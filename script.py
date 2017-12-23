@@ -159,6 +159,8 @@ def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
     # dobieraj karty dla krupiera az > Input 2
     # zapisz wygrana/przegrana -> Output
 
+
+    
 money = []
 # balance = 1000
 for i in range(1):

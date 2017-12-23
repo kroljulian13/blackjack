@@ -1,0 +1,9 @@
+/*General*/
+body, input, button, textarea {
+    font-family: 'Varela Round', Helvetica Neue, Helvetica, Arial, serif;
+  }
+
+/*Notifications*/
+.alert {
+  text-align: center;
+}
