@@ -3,11 +3,18 @@
 <div class="form-group">
     {% if field.errors %}
         {% for error in field.errors %}
-            <div class="notification error"> {{ error }}</div>
+            <div class=" alert-danger" role="alert"> {{ error }}</div>
         {% endfor %}
     {% endif %}
+    <div class="row">
+        <div class="col">
+            {{ field.label.text }}            
+        </div>
+        <div class="col">
+            {{ field(placeholder=field.label.text) }}
+        </div>
+    </div>
     
-    {{ field(placeholder=field.label.text) }}
 </div>
 
 

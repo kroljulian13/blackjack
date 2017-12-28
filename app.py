@@ -17,9 +17,9 @@ def strategy():
     if form.validate_on_submit():
         flash("Data are analyzed", category='success')
         # data processing
-        # ...............
-        script.game(0, 1000, 10)
-        return render_template('strategy.html',form=form)
+        data=script.game(0, int(form.balance.data), int(form.bet.data))
+
+        return render_template('strategy.html',form=form, data=data)
     return render_template('strategy.html',form=form)
 
 

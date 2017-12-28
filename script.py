@@ -79,6 +79,7 @@ def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
            'K','K','K','K',
            'A','A','A','A'
             ]
+    report=[]
     #extending to 4 decks
     talia.extend(talia)
     talia.extend(talia)
@@ -142,16 +143,28 @@ def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
         HL = hiLo(HL, krupier, user)
         realHL = HL/4
 
-        print("\nUser: "+str(bestScore(score(user))),user)
-        print("Krupier: "+str(bestScore(score(krupier))),krupier)
+        print("\nUser: "+str(bestScore(score(user))), user)
+        print("Krupier: "+str(bestScore(score(krupier))), krupier)
         # print("Talia: ",talia)
         print("Result: "+str(totalWin)+"/"+str(rozdanie))
         print("Zostało kart:", len(talia))
         print("real HI-LO: "+str(realHL))
         print("money: ",money)
         print("bet :",baseBetHL)
-
-    return money
+        report.append({ 
+            "no": str(rozdanie),
+            "userScore": str(bestScore(score(user))), 
+            "userCards": user,
+            "krupierScore": str(bestScore(score(krupier))),
+            "krupierCards": krupier,
+            "totalWin": str(totalWin),
+            "cardsLeft": str(len(talia)),
+            "realHL": str(realHL),
+            "balance":str(money),
+            "bet": str(baseBetHL)
+            })
+    
+    return report
 
 # cykl 1..2..3 (kilkaset rozdań) - dobieram 0..1..2 kart gdy score < 17
     #----- losuj karte dla krupiera -> Input 1
@@ -161,15 +174,15 @@ def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
 
 
     
-money = []
+# money = []
 # balance = 1000
-for i in range(1):
-    baseBet = 10
-    # balance =  game(0, balance, baseBet)
-    money.append( game(0, 1000, baseBet))
+# for i in range(1):
+#     baseBet = 10
+#     # balance =  game(0, balance, baseBet)
+#     money.append( game(0, 1000, baseBet))
 
-print(money)
+# print(money)
 
-plt.hist(money, normed=True, bins=30)
-plt.ylabel('Probability')
-plt.show()
+# plt.hist(money, normed=True, bins=30)
+# plt.ylabel('Probability')
+# plt.show()
