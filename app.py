@@ -15,9 +15,10 @@ app.secret_key = "a;lkdjaf;lksjdf;laksjdfa;sk"
 def strategy():
     form=forms.InputsForm()
     if form.validate_on_submit():
-        flash("Data are analyzed", category='success')
+        flash("Data analyzed", category='success')
         # data processing
-        data=script.game(0, int(form.balance.data), int(form.bet.data))
+        data=script.game(0, int(form.balance.data), int(form.bet.data), 
+            int(form.idlePlay.data), int(form.maxBet.data), form.hiloActive.data)
 
         return render_template('strategy.html',form=form, data=data)
     return render_template('strategy.html',form=form)

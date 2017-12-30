@@ -1,5 +1,5 @@
 import unittest
-from script1 import score, bestScore, hiLo
+from script import score, bestScore, hiLo
 
 class TestStringMethods(unittest.TestCase):
 

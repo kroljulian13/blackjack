@@ -64,7 +64,7 @@ def hiLo(init, krupier, user):
     
     return rate
 
-def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
+def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do rozdania wszystkich kart w tali
     talia=['2','2','2','2',
            '3','3','3','3',
            '4','4','4','4',
@@ -98,7 +98,14 @@ def game(dobraneKarty, money, baseBet): # az do rozdania wszystkich kart w tali
         krupier = []
         user = []
         result = 0
-        baseBetHL=baseBet+realHL*baseBet
+        if hiloActive:
+            baseBetHL=baseBet+realHL*baseBet
+
+        else:
+            baseBetHL=baseBet
+
+        if baseBetHL<idlePlay:
+            baseBetHL= idlePlay
 
         krupier=random.sample(talia, 1)
         for item in krupier:
