@@ -7,13 +7,9 @@
     <form method="POST" action="" class="form-group">
         {{ form.hidden_tag() }}
         <div class="container">
-          <div class="row">
           {% for field in form if field.widget.input_type != 'hidden' %}
-              <div class="col">
               {{ render_field(field) }}                
-              </div>
           {% endfor %}               
-          </div>          
         </div>  
 
         <button type="submit" id="submit" class="btn btn-outline-success"> Submit data </button>

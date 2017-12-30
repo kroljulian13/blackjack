@@ -53,6 +53,9 @@ strategy1 = {
 }
 
 class TestStringMethods(unittest.TestCase):
+    def test_level0(self):
+        self.assertEqual( matcher([] ,strategy1), 0 )
+
     def test_level01(self):
         self.assertEqual( matcher(["W"] ,strategy1), 0 )
 

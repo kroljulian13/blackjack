@@ -1,8 +1,8 @@
 
 # strategy generator
 
-
-strategy = { 
+# default strategy
+defaultStrategy = { 
     "L" : {
         "bet" : 1,
         "L" : {
@@ -19,12 +19,12 @@ strategy = {
                     }
                 },
                 "L" : {  
-                    "bet" : 4,
+                    "bet" : 8,
                     "W" : {
                         "bet": 1
                     },
                     "L" : {
-                        "bet": 1
+                        "bet": 16
                     }
                 }  
             },
@@ -67,14 +67,14 @@ def matcher(userGamesResults, strategy ):
         # level 1 check
         for item1 in strategy:
             if item1 == userGamesResults[item]:
-                print('level #1 passed => bet {}'.format(str(strategy[item1]['bet'])))
+                # print('level #1 passed => bet {}'.format(str(strategy[item1]['bet'])))
                 betMultiply=strategy[item1]['bet']
                 
                 # level 2 check
                 for item2 in strategy[item1]:
                     if item+1 < len(userGamesResults):
                         if item2 == userGamesResults[item + 1]:
-                            print('level #2 passed => bet {}'.format(str(strategy[item1][item2]['bet'])))
+                            # print('level #2 passed => bet {}'.format(str(strategy[item1][item2]['bet'])))
                             betMultiply=strategy[item1][item2]['bet']
                             if item+1==len(userGamesResults)-1:
                                 return betMultiply
@@ -83,7 +83,7 @@ def matcher(userGamesResults, strategy ):
                             for item3 in strategy[item1][item2]:
                                 if item+2 < len(userGamesResults):
                                     if item3 == userGamesResults[item + 2]:
-                                        print('level #3 passed => bet {}'.format(str(strategy[item1][item2][item3]['bet'])))
+                                        # print('level #3 passed => bet {}'.format(str(strategy[item1][item2][item3]['bet'])))
                                         betMultiply=strategy[item1][item2][item3]['bet']
                                         if item+2==len(userGamesResults)-1:
                                             return betMultiply
@@ -92,7 +92,7 @@ def matcher(userGamesResults, strategy ):
                                         for item4 in strategy[item1][item2][item3]:
                                             if item+3 < len(userGamesResults):
                                                 if item4 == userGamesResults[item + 3]:
-                                                    print('level #4 passed => bet {}'.format(str(strategy[item1][item2][item3][item4]['bet'])))
+                                                    # print('level #4 passed => bet {}'.format(str(strategy[item1][item2][item3][item4]['bet'])))
                                                     betMultiply=strategy[item1][item2][item3][item4]['bet']
                                                     if item+3==len(userGamesResults)-1:
                                                         return betMultiply      
@@ -101,7 +101,7 @@ def matcher(userGamesResults, strategy ):
                                                     for item5 in strategy[item1][item2][item3][item4]:
                                                         if item+4 < len(userGamesResults):
                                                             if item5 == userGamesResults[item + 4]:
-                                                                print('level #5 passed => bet {}'.format(str(strategy[item1][item2][item3][item4][item5]['bet'])))
+                                                                # print('level #5 passed => bet {}'.format(str(strategy[item1][item2][item3][item4][item5]['bet'])))
                                                                 betMultiply=strategy[item1][item2][item3][item4][item5]['bet']
                                                                 if item+4==len(userGamesResults)-1:
                                                                     return betMultiply    

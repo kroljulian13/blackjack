@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+from strategy import matcher, defaultStrategy
 
 #funkcja zliczania punktów (ogarnia kombinacje tylko do 2 asów)
 # A = 11 lub 1  
@@ -64,7 +65,7 @@ def hiLo(init, krupier, user):
     
     return rate
 
-def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do rozdania wszystkich kart w tali
+def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy): # az do rozdania wszystkich kart w tali
     talia=['2','2','2','2',
            '3','3','3','3',
            '4','4','4','4',
@@ -80,6 +81,7 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do ro
            'A','A','A','A'
             ]
     report=[]
+    gamesRegister=[]
     #extending to 4 decks
     talia.extend(talia)
     talia.extend(talia)
@@ -98,8 +100,15 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do ro
         krupier = []
         user = []
         result = 0
-        if hiloActive:
+
+        #bet set according to strategy
+        if selectedStrategy=="hiloActive":
             baseBetHL=baseBet+realHL*baseBet
+        
+        elif selectedStrategy=="betStrategyActive":
+            baseBetHL=baseBet*matcher(gamesRegister, defaultStrategy)
+            if baseBetHL==0:
+                baseBetHL=baseBet
 
         else:
             baseBetHL=baseBet
@@ -107,6 +116,7 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do ro
         if baseBetHL<idlePlay:
             baseBetHL= idlePlay
 
+        #pobranie karty przez krupiera
         krupier=random.sample(talia, 1)
         for item in krupier:
             talia.remove(item)
@@ -147,6 +157,15 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do ro
         else:
             money -= baseBetHL
 
+        if result==0:
+            gamesRegister.append("L")
+        elif result==1:
+            gamesRegister.append("W")
+        
+        if len(gamesRegister)>6:
+            gamesRegister.pop(0)
+
+
         HL = hiLo(HL, krupier, user)
         realHL = HL/4
 
@@ -158,6 +177,7 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, hiloActive): # az do ro
         print("real HI-LO: "+str(realHL))
         print("money: ",money)
         print("bet :",baseBetHL)
+        print("game register :",gamesRegister)
         report.append({ 
             "no": str(rozdanie),
             "userScore": str(bestScore(score(user))), 

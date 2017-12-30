@@ -1,6 +1,6 @@
 from flask_wtf import Form
 
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, RadioField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, 
                                  Length, EqualTo)
 
@@ -34,7 +34,18 @@ class InputsForm(Form):
             DataRequired(), 
             Regexp( r'^[0-9]+$', message = " maxBet should be only integer numbers")
             ])
-    hiloActive = BooleanField(
-        'HiloActive',
-        default="checked"
-        )
+    strategy = RadioField(
+        'Strategy',
+        choices=[
+            ("hiloActive", 'Hi-Lo'), 
+            ("betStrategyActive",'Bet Strategy'),
+            ("noStrategy", 'No strategy')],
+        default="hiloActive", 
+    )
+    # hiloActive = BooleanField(
+    #     'HiloActive',
+    #     default="checked"
+    #     )
+    # betStrategyActive = BooleanField(
+    #     'BetStrategyActive',
+    #     ) 
