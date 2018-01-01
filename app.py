@@ -24,6 +24,9 @@ def strategy():
         return render_template('strategy.html',form=form, data=data)
     return render_template('strategy.html',form=form)
 
+@app.route('/overview')
+def overview():
+    return render_template('overview.html')
 
 @app.route('/')
 def index():
