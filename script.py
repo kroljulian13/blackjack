@@ -159,8 +159,10 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy): # az
 
         if result==0:
             gamesRegister.append("L")
+            resultBackground="lose"
         elif result==1:
             gamesRegister.append("W")
+            resultBackground="win"
         
         if len(gamesRegister)>6:
             gamesRegister.pop(0)
@@ -188,7 +190,8 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy): # az
             "cardsLeft": str(len(talia)),
             "realHL": str(realHL),
             "balance":str(money),
-            "bet": str(baseBetHL)
+            "bet": str(baseBetHL),
+            "result": resultBackground
             })
     
     return report

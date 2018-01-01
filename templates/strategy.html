@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         {% for game in data %}    
-          <tr>
+          <tr class=" {{game.result}}  ">
             <td> {{ game.no }} </td>
             <td> {{ game.userScore }} </td>
             <td> {{ game.krupierScore }} </td>
