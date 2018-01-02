@@ -1,10 +1,17 @@
 {% extends "layout.html" %}
 
-{% from 'macros.html' import render_field %}
+{% from 'macros.html' import render_field, render_coef %}
 
 {% block content %}
-<main role="main" class="col-sm-4 offset-sm-4 offset-md-2 col-md-4 col-lg-4 pt-3  ">
-    <form method="POST" action="" class="form-group">
+
+<main role="main" class="col-sm-10 offset-sm-1  col-md-10 col-lg-8 pt-3  ">
+<form method="POST" action="" class="">
+  <div role="main" class="card">
+    <div class="card-header" id="maininputs">
+      Main settings
+    </div>
+    <div class="card-body">
+      <!-- <form method="POST" action="" class=""> -->
         {{ form.hidden_tag() }}
         <div class="container">
           {% for field in form if field.widget.input_type != 'hidden' %}
@@ -12,41 +19,117 @@
           {% endfor %}               
         </div>  
 
-        <button type="submit" id="submit" class="btn btn-outline-success"> Submit data </button>
-    </form>
+        <!-- <button type="submit" class="btn btn-outline-success"> Submit data </button> -->
+      <!-- </form> -->
+    </div>
+    <div class="card-body treeviewB" id="treeviewB">
+      <h5 class="card-title">Bet multipliers</h5>
+      <ul class="tree">
+        <li>{{ render_coef(betForm.L0) }}
+          <ul>
+            <li>{{ render_coef(betForm.L1) }}
+              <ul>
+                <li>{{ render_coef(betForm.L22) }}
+                  <ul>
+                    <li>{{ render_coef(betForm.L34) }}
+                      <ul>
+                        <li>{{ render_coef(betForm.L48) }}</li>
+                        <li>{{ render_coef(betForm.W47) }}</li>
+                      </ul>
+                    </li>
+                    <li>{{ render_coef(betForm.W33) }}
+                      <ul>
+                        <li>{{ render_coef(betForm.L46) }} </li>
+                        <li>{{ render_coef(betForm.W45) }} </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>{{ render_coef(betForm.W21) }} 
+                  <ul>
+                    <li>{{ render_coef(betForm.L32) }} 
+                      <ul>
+                        <li>{{ render_coef(betForm.L44) }} </li>
+                        <li>{{ render_coef(betForm.W43) }} </li>
+                      </ul>
+                    </li>
+                    <li>{{ render_coef(betForm.W31) }} 
+                      <ul>
+                        <li>{{ render_coef(betForm.L42) }} </li>
+                        <li>{{ render_coef(betForm.W41) }} </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+        <!-- <button type="submit"  class="btn btn-outline-success"> Submit data </button>   -->
+    </div>
+
+  </div>
+  <button type="submit"  class="btn btn-outline-success"> Submit data </button>
+</form>
+
+  <div role="main" class="card">
+    <div class="card-header">
+        Games results
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User Score</th>
+              <th>Croupier Score</th>
+              <th>Bet</th>
+              <th>Total Wins</th>
+              <th>Cards left</th>
+              <th>real HI-LO</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for game in data %}    
+            <tr class=" {{game.result}}  ">
+              <td> {{ game.no }} </td>
+              <td> {{ game.userScore }} {{game.userCards}} </td>
+              <td> {{ game.krupierScore }} {{game.krupierCards}} </td>
+              <td> {{ game.bet }} </td>
+              <td> {{ game.totalWin }} </td>
+              <td> {{ game.cardsLeft }} </td>
+              <td> {{ game.realHL }} </td>
+              <td> {{ game.balance }} </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </main>
 
-<main role="main" class="col-sm-8 offset-sm-3 offset-md-2 col-md-8 pt-3">
-    <h2>Games results</h2>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>User Score</th>
-            <th>Croupier Score</th>
-            <th>Bet</th>
-            <th>Total Wins</th>
-            <th>Cards left</th>
-            <th>real HI-LO</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for game in data %}    
-          <tr class=" {{game.result}}  ">
-            <td> {{ game.no }} </td>
-            <td> {{ game.userScore }} {{game.userCards}} </td>
-            <td> {{ game.krupierScore }} {{game.krupierCards}} </td>
-            <td> {{ game.bet }} </td>
-            <td> {{ game.totalWin }} </td>
-            <td> {{ game.cardsLeft }} </td>
-            <td> {{ game.realHL }} </td>
-            <td> {{ game.balance }} </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-</main>
+<script type="text/javascript">
+
+var strategySelector = document.getElementById("strategy-1").checked
+var coefCard = document.getElementById("treeviewB")
+
+if (strategySelector) 
+  coefCard.style.display = "block";
+
+else 
+  coefCard.style.display = "none";
+
+// $(document).ready(function(){
+//   $("#treeviewH").click(function(){
+//     $("#treeviewB").toggle();
+//   });
+// });
+</script>
+
 {% endblock %}

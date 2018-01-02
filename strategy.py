@@ -59,7 +59,7 @@ userGamesResults = ["W","L","L","W"]
 
 # check for matching pattern, starting from last item of array digging down
 
-def matcher(userGamesResults, strategy ):
+def matcher(userGamesResults, strategy=defaultStrategy ):
     
     betMultiply=0 # starting bet
 

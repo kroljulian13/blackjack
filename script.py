@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from strategy import matcher, defaultStrategy
+from strategy import matcher
 
 #funkcja zliczania punktów (ogarnia kombinacje tylko do 2 asów)
 # A = 11 lub 1  
@@ -65,7 +65,7 @@ def hiLo(init, krupier, user):
     
     return rate
 
-def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy): # az do rozdania wszystkich kart w tali
+def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy, playerStrategy): # az do rozdania wszystkich kart w tali
     talia=['2','2','2','2',
            '3','3','3','3',
            '4','4','4','4',
@@ -106,7 +106,7 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy): # az
             baseBetHL=baseBet+realHL*baseBet
         
         elif selectedStrategy=="betStrategyActive":
-            baseBetHL=baseBet*matcher(gamesRegister, defaultStrategy)
+            baseBetHL=baseBet*matcher(gamesRegister, playerStrategy)
             if baseBetHL==0:
                 baseBetHL=baseBet
 

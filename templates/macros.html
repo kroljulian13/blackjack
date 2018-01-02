@@ -14,8 +14,21 @@
             {{ field(placeholder=field.label.text) }}
         </div>
     </div>
-    
 </div>
 
+{% endmacro %}
+
+
+
+
+{% macro render_coef(field) %}
+
+    <a>{{ field.label.text }}  {{ field(type="number", min="1", max="1000") }} </a>
+    <!-- type="number", min="1", max="1000" -->
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <span class=" alert-danger" role="alert"> {{ error }}</span>
+        {% endfor %}
+    {% endif %}
 
 {% endmacro %}
