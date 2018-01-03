@@ -116,20 +116,19 @@
 
 <script type="text/javascript">
 
-var strategySelector = document.getElementById("strategy-1").checked
+var strategySelector = document.getElementById("strategy")
+var betStrategySelector = document.getElementById("strategy-1")
 var coefCard = document.getElementById("treeviewB")
+coefCard.style.display = "none";
 
-if (strategySelector) 
-  coefCard.style.display = "block";
+strategySelector.addEventListener("change", function(){
+  if (betStrategySelector.checked) 
+    coefCard.style.display = "block";
 
-else 
-  coefCard.style.display = "none";
+  else 
+    coefCard.style.display = "none";  
+})
 
-// $(document).ready(function(){
-//   $("#treeviewH").click(function(){
-//     $("#treeviewB").toggle();
-//   });
-// });
 </script>
 
 {% endblock %}
