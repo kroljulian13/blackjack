@@ -65,7 +65,7 @@ def hiLo(init, krupier, user):
     
     return rate
 
-def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy, playerStrategy): # az do rozdania wszystkich kart w tali
+def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy, strategyCoeff): # az do rozdania wszystkich kart w tali
     talia=['2','2','2','2',
            '3','3','3','3',
            '4','4','4','4',
@@ -106,7 +106,7 @@ def game(dobraneKarty, money, baseBet, idlePlay, maxBet, selectedStrategy, playe
             baseBetHL=baseBet+realHL*baseBet
         
         elif selectedStrategy=="betStrategyActive":
-            baseBetHL=baseBet*matcher(gamesRegister, playerStrategy)
+            baseBetHL=baseBet*matcher(gamesRegister, strategyCoeff)
             if baseBetHL==0:
                 baseBetHL=baseBet
 

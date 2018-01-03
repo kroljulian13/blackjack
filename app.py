@@ -1,6 +1,7 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, g, render_template, flash, redirect, url_for, request
 import forms
 import script
+import models
 
 DEBUG = True
 PORT = 8001
@@ -9,6 +10,18 @@ HOST = '0.0.0.0'
 app = Flask(__name__)
 app.secret_key = "a;lkdjaf;lksjdf;laksjdfa;sk"
 
+@app.before_request
+def before_request():
+    """Conect to db before each request"""
+    g.db = models.DATABASE
+    g.db.connect()
+    
+@app.after_request
+def after_request(response):
+    """Close db connection after each req"""
+    g.db.close()
+    return response
+
 @app.route('/strategy', methods = ['GET','POST'])
 def strategy():
     form=forms.BaseInputsForm()
@@ -16,7 +29,7 @@ def strategy():
     if form.validate_on_submit() and betForm.validate_on_submit():
         flash("Data analyzed scroll down to check results", category='success')
         # data processing
-        playerStrategy = { 
+        strategyCoeff = { 
             "L" : {
                 "bet" : int(betForm.L0.data),
                 "L" : {
@@ -68,7 +81,18 @@ def strategy():
         }
 
         simulationResults=script.game(0, int(form.balance.data), int(form.bet.data), 
-            int(form.idlePlay.data), int(form.maxBet.data), form.strategy.data, playerStrategy)
+            int(form.idlePlay.data), int(form.maxBet.data), form.strategy.data, strategyCoeff)
+        try:
+            models.Results.create(
+                balance = simulationResults[len(simulationResults)-1]["balance"], 
+                total_win = simulationResults[len(simulationResults)-1]["totalWin"],
+                numberOfPlays = simulationResults[len(simulationResults)-1]["no"],
+                strategy = form.strategy.data)
+        except models.IntegrityError:
+            print(models.IntegrityError)
+            flash("DB error", category='danger')
+        else:
+            pass
 
         return render_template('strategy.html',form=form, betForm=betForm, data=simulationResults)
     return render_template('strategy.html',form=form, betForm=betForm )
@@ -79,7 +103,14 @@ def overview():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    results = models.Results.select().limit(100)
+
+    return render_template('index.html', results=results)
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
 
 if __name__=='__main__':
+    models.initialize()
     app.run(debug=DEBUG, host=HOST, port=PORT)

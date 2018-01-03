@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<main role="main" class="col-sm-9 sm-auto col-md-10 pt-3">
+<main role="main" class="col-sm-9 sm-auto offset-sm-1  col-md-10 pt-3">
     <h1>Dashboard</h1>
 
     <section class="row text-center placeholders">
@@ -28,26 +28,30 @@
       </div>
     </section>
 
-    <h2>Section title</h2>
+    <h2>Last results</h2>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Header</th>
-            <th>Header</th>
-            <th>Header</th>
-            <th>Header</th>
+            <th>Date</th>
+            <th>Strategy</th>
+            <th>Balance</th>
+            <th>Total Wins</th>
+            <th>No of games</th>            
+            <th>User</th>
           </tr>
         </thead>
         <tbody>
+          {% for item in results %}
           <tr>
-            <td>1,001</td>
-            <td>Lorem</td>
-            <td>ipsum</td>
-            <td>dolor</td>
-            <td>sit</td>
+            <td>{{ item.timestamp.strftime('%Y-%m-%d %H:%M:%S') }} </td>
+            <td>{{ item.strategy }}  </td>
+            <td>{{ item.balance }}  </td>
+            <td>{{ item.total_win }}  </td>
+            <td>{{ item.numberOfPlays }}  </td>            
+            <td>{{ item.userNick }}</td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
