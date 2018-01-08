@@ -103,9 +103,23 @@ def overview():
 
 @app.route('/')
 def index():
-    results = models.Results.select().limit(100)
+    results = models.Results.select()
 
-    return render_template('index.html', results=results)
+    if results:
+        #finding best, worst score
+        best = float(results[0].balance)
+        worst = float(results[0].balance)
+        for result in results:
+            if float(result.balance) > best:
+                best=float(result.balance)
+            if float(result.balance) < worst:
+                worst=float(result.balance)
+
+    else:
+        best = 0
+        worst = 0
+
+    return render_template('index.html', results=results, metric = {"best":best, "worst":worst})
 
 @app.errorhandler(404)
 def not_found(error):

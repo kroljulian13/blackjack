@@ -2,12 +2,15 @@
 
 {% block content %}
 
+<main role="main" class="col-sm-4 sm-auto offset-sm-1  col-md-4 pt-3"></main>
+    <div>
+        <br><br><br><br>
+        <h1> 404 </h1>
 
+        <p> sorry page does not exist</p>
 
-<h1> 404 </h1>
-
-<p> wow sorry page does not exist</p>
-
-<p> <a href="{{ url_for('index')  }}">Try again</a> </p>
+        <p> <a href="{{ url_for('index')  }}">Try again</a> </p>    
+    </div>
+</main>
 
 {% endblock %}
