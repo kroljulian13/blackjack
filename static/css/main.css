@@ -99,6 +99,7 @@ ul.tree>li:first-child::after {
 .single-chart {
   width: 33%;
   justify-content: space-around ;
+  text-align: center;
 }
 
 .circular-chart {
