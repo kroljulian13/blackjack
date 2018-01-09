@@ -2,6 +2,7 @@ from flask import Flask, g, render_template, flash, redirect, url_for, request
 import forms
 import script
 import models
+import os
 
 DEBUG = True
 PORT = 8001
