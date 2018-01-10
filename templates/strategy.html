@@ -117,16 +117,19 @@
 <script type="text/javascript">
 
 var strategySelector = document.getElementById("strategy")
-var betStrategySelector = document.getElementById("strategy-1")
+var betStrategySelector = document.getElementById("strategy-1") // Bet Strategy
 var coefCard = document.getElementById("treeviewB")
-coefCard.style.display = "none";
+
+function setView() {
+  if (betStrategySelector.checked) 
+  coefCard.style.display = "block";
+else 
+  coefCard.style.display = "none";
+}
+setView();
 
 strategySelector.addEventListener("change", function(){
-  if (betStrategySelector.checked) 
-    coefCard.style.display = "block";
-
-  else 
-    coefCard.style.display = "none";  
+  setView();
 })
 
 </script>
