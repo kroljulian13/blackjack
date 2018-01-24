@@ -45,7 +45,7 @@ class TestStringMethods(unittest.TestCase):
 
 # ------------------------------------------------------------------
     def test_result7(self):
-        self.assertEqual( hiLo(["A","2","3"],["3","7","10"]) , 1)
+        self.assertEqual( hiLo(0, ["A","2","3"],["3","7","10"]) , 1)
 
 
 
