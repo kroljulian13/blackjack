@@ -14,5 +14,5 @@ after_success:
 
 deploy:
   provider: heroku
-  api_key: HEROKU_API
+  api_key: $HEROKU_API
   app: blackjacktester
