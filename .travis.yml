@@ -11,3 +11,8 @@ script:
 
 after_success:
   - sh .travis/deploy_dockerhub.sh
+
+deploy:
+  provider: heroku
+  api_key: HEROKU_API
+  app: blackjacktester
